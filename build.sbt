@@ -18,6 +18,9 @@ lazy val root =
 lazy val lib = project.in(file("lib")).settings(
   libraryDependencies ++= Seq(
     "org.typelevel" %% "cats-core" % V.cats,
+    "io.circe" %% "circe-core" % V.circe,
+    "io.circe" %% "circe-generic" % V.circe,
+    "io.circe" %% "circe-parser" % V.circe,
     "org.scalameta" %% "munit" % V.munit % Test
   ),
   scalacOptions -= "-Xfatal-warnings"
