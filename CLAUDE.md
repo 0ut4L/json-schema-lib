@@ -11,6 +11,75 @@ This is a Scala 3 library for compile-time generation of JSON schemas from case 
 - Cats for functional programming (v2.13.0)
 - MUnit for testing (v1.2.1)
 
+## Mandatory Workflow
+
+When making changes to this codebase, **ALWAYS** follow these steps:
+
+### 1. Make Your Code Changes
+Edit or create the necessary Scala files.
+
+### 2. Run Code Quality Tools
+**REQUIRED** - Run both formatting and linting tools:
+
+```bash
+sbt scalafmtAll scalafixAll
+```
+
+This command:
+- `scalafmtAll` - Formats all Scala code (main + test) according to `.scalafmt.conf`
+- `scalafixAll` - Runs scalafix rules (OrganizeImports, etc.) according to `.scalafix.conf`
+
+**Never skip this step**. Code must be properly formatted before committing.
+
+### 3. Update Documentation
+**REQUIRED** - Update `README.md` whenever:
+- Adding new features
+- Changing public APIs
+- Adding new constraint annotations
+- Adding support for new types
+- Changing usage patterns
+
+Keep the README examples up-to-date and accurate.
+
+### 4. Run Tests
+Verify your changes work:
+
+```bash
+sbt test
+```
+
+Ensure all tests pass before considering the work complete.
+
+### Complete Workflow Example
+
+```bash
+# 1. Make code changes (edit files)
+
+# 2. Format and lint
+sbt scalafmtAll scalafixAll
+
+# 3. Update README.md (if needed)
+
+# 4. Test
+sbt test
+
+# 5. Commit (if requested by user)
+```
+
+### Why This Matters
+
+- **scalafmtAll** - Ensures consistent code style across the project
+- **scalafixAll** - Catches common issues and organizes imports properly
+- **README updates** - Keeps documentation in sync with code
+- **Testing** - Verifies nothing broke
+
+### Additional Notes
+
+- Always use `sbt scalafmtAll` (not just `scalafmt`) to format both main and test code
+- Always use `sbt scalafixAll` (not just `scalafix`) to lint both main and test code
+- If the user explicitly says "don't format", skip the formatting step only for that specific change
+- Documentation updates should be comprehensive and include code examples
+
 ## Project Structure
 
 The project is a multi-module sbt build:
@@ -72,11 +141,15 @@ The project enforces strict formatting and linting:
 - OrganizeImports rule enabled with unused import removal
 - Targets Scala 3 dialect
 
-Always run `sbt scalafmtAll` before committing changes.
-
 ## Commit Message Convention
 
 All commit messages should start with a lowercase letter (e.g., "add feature" not "Add feature").
+
+Examples:
+- ✅ `add support for Option types`
+- ✅ `fix constraint extraction in macros`
+- ❌ `Add support for Option types`
+- ❌ `Fix constraint extraction in macros`
 
 ## SBT Configuration
 
