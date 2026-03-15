@@ -2,7 +2,7 @@
 
 A Scala 3 library for generating compile-time JSON schemas from case classes using type classes and macros.
 
-## ⚠️ Disclaimer
+## ⚠️ Project Status
 
 This project is purely experimental and was created for me to experiment with [Claude Code](https://claude.com/claude-code) and explore vibe-based coding workflows. It's a learning exercise and playground for testing AI-assisted development patterns. Use at your own risk!
 
