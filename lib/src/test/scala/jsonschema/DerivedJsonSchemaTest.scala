@@ -8,7 +8,9 @@ class DerivedJsonSchemaTest extends FunSuite:
 
   test("Derive schema for simple case class") {
     case class Person(name: String, age: Int)
-    given JsonSchema[Person] = DeriveJsonSchema.derived
+
+    object Person:
+      given JsonSchema[Person] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[Person].schema
     val json = schema.toJson
@@ -34,7 +36,9 @@ class DerivedJsonSchemaTest extends FunSuite:
         flt: Float,
         bool: Boolean
     )
-    given JsonSchema[AllPrimitives] = DeriveJsonSchema.derived
+
+    object AllPrimitives:
+      given JsonSchema[AllPrimitives] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[AllPrimitives].schema
     val json = schema.toJson
@@ -57,7 +61,9 @@ class DerivedJsonSchemaTest extends FunSuite:
 
   test("Derive schema with string constraints") {
     case class Username(@MinLength(3) @MaxLength(20) username: String)
-    given JsonSchema[Username] = DeriveJsonSchema.derived
+
+    object Username:
+      given JsonSchema[Username] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[Username].schema
     val json = schema.toJson
@@ -79,7 +85,9 @@ class DerivedJsonSchemaTest extends FunSuite:
 
   test("Derive schema with pattern constraint") {
     case class Email(@Pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") email: String)
-    given JsonSchema[Email] = DeriveJsonSchema.derived
+
+    object Email:
+      given JsonSchema[Email] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[Email].schema
     val json = schema.toJson
@@ -100,7 +108,9 @@ class DerivedJsonSchemaTest extends FunSuite:
 
   test("Derive schema with integer constraints") {
     case class Age(@MinimumInt(0) @MaximumInt(150) age: Int)
-    given JsonSchema[Age] = DeriveJsonSchema.derived
+
+    object Age:
+      given JsonSchema[Age] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[Age].schema
     val json = schema.toJson
@@ -122,7 +132,9 @@ class DerivedJsonSchemaTest extends FunSuite:
 
   test("Derive schema with double constraints") {
     case class Temperature(@Minimum(-273.15) @Maximum(1000.0) temp: Double)
-    given JsonSchema[Temperature] = DeriveJsonSchema.derived
+
+    object Temperature:
+      given JsonSchema[Temperature] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[Temperature].schema
     val json = schema.toJson
@@ -148,7 +160,9 @@ class DerivedJsonSchemaTest extends FunSuite:
         @MinimumInt(18) @MaximumInt(120) age: Int,
         @Pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") email: String
     )
-    given JsonSchema[User] = DeriveJsonSchema.derived
+
+    object User:
+      given JsonSchema[User] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[User].schema
     val json = schema.toJson
@@ -181,7 +195,9 @@ class DerivedJsonSchemaTest extends FunSuite:
     case class Score(
         @ExclusiveMinimumInt(0) @ExclusiveMaximumInt(100) score: Int
     )
-    given JsonSchema[Score] = DeriveJsonSchema.derived
+
+    object Score:
+      given JsonSchema[Score] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[Score].schema
     val json = schema.toJson
@@ -207,7 +223,9 @@ class DerivedJsonSchemaTest extends FunSuite:
         age: Option[Int],
         email: Option[String]
     )
-    given JsonSchema[OptionalUser] = DeriveJsonSchema.derived
+
+    object OptionalUser:
+      given JsonSchema[OptionalUser] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[OptionalUser].schema
     val json = schema.toJson
@@ -231,7 +249,9 @@ class DerivedJsonSchemaTest extends FunSuite:
         email: Option[String],
         age: Option[Int]
     )
-    given JsonSchema[MixedUser] = DeriveJsonSchema.derived
+
+    object MixedUser:
+      given JsonSchema[MixedUser] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[MixedUser].schema
     val json = schema.toJson
@@ -255,7 +275,9 @@ class DerivedJsonSchemaTest extends FunSuite:
         @MinLength(3) @MaxLength(50) name: Option[String],
         @MinimumInt(0) @MaximumInt(150) age: Option[Int]
     )
-    given JsonSchema[OptionalWithConstraints] = DeriveJsonSchema.derived
+
+    object OptionalWithConstraints:
+      given JsonSchema[OptionalWithConstraints] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[OptionalWithConstraints].schema
     val json = schema.toJson
@@ -283,7 +305,8 @@ class DerivedJsonSchemaTest extends FunSuite:
     enum Color:
       case Red, Green, Blue
 
-    given JsonSchema[Color] = DeriveJsonSchema.derived
+    object Color:
+      given JsonSchema[Color] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[Color].schema
     val json = schema.toJson
@@ -300,7 +323,8 @@ class DerivedJsonSchemaTest extends FunSuite:
     enum Status:
       case Pending, Approved, Rejected, InProgress
 
-    given JsonSchema[Status] = DeriveJsonSchema.derived
+    object Status:
+      given JsonSchema[Status] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[Status].schema
     val json = schema.toJson
@@ -318,8 +342,8 @@ class DerivedJsonSchemaTest extends FunSuite:
       case Low, Medium, High
 
     case class Task(name: String, priority: Priority)
-    given JsonSchema[Priority] = DeriveJsonSchema.derived
-    given JsonSchema[Task] = DeriveJsonSchema.derived
+    object Task:
+      given JsonSchema[Task] = DeriveJsonSchema.derived
 
     val schema = JsonSchema[Task].schema
     val json = schema.toJson
