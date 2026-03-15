@@ -38,7 +38,7 @@ object DeriveJsonSchema:
       report.errorAndAbort(s"${typeSymbol.name} has no parameters")
 
     // Generate schema for each field
-    val fieldSchemas = params.map { param =>
+    val fieldSchemas = params.map: param =>
       val fieldName = param.name
       val fieldType = tpe.memberType(param)
       val annotations = param.annotations
@@ -47,20 +47,20 @@ object DeriveJsonSchema:
       val (schemaExpr, isRequired) = generateFieldSchema(fieldType, annotations, fieldName)
 
       (Expr(fieldName), schemaExpr, Expr(isRequired))
-    }
 
     // Build the properties map
-    val propertiesExprs = fieldSchemas.map { case (nameExpr, schemaExpr, _) =>
-      '{ ($nameExpr, $schemaExpr) }
-    }
+    val propertiesExprs = fieldSchemas.map:
+      case (nameExpr, schemaExpr, _) =>
+        '{ ($nameExpr, $schemaExpr) }
 
     val propertiesMapExpr = Expr.ofList(propertiesExprs)
 
     // Build the required fields list
     val requiredExprs = fieldSchemas
-      .collect { case (nameExpr, _, Expr(true)) =>
-        nameExpr
-      }
+      .collect:
+        case (nameExpr, _, Expr(true)) =>
+          nameExpr
+
     val requiredListExpr = Expr.ofList(requiredExprs)
 
     '{
