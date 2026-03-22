@@ -19,7 +19,6 @@ This project is purely experimental and was created for me to experiment with [C
 
 ```scala
 import jsonschema.*
-import jsonschema.derivation.DeriveJsonSchema
 
 enum Role:
   case Admin, User, Guest
@@ -42,17 +41,23 @@ val json = schema.toJson
 ```
 
 **Generated JSON Schema:**
+
 ```json
 {
   "type": "object",
   "properties": {
-    "username": {"type": "string", "minLength": 3, "maxLength": 50},
-    "age": {"type": "integer", "minimum": 18, "maximum": 120},
-    "score": {"type": "number", "minimum": 0.0},
-    "active": {"type": "boolean"},
-    "role": {"type": "string", "enum": ["Admin", "User", "Guest"]},
-    "tags": {"type": "array", "items": {"type": "string"}, "minItems": 1, "maxItems": 10},
-    "bio": {"type": "string"}
+    "username": { "type": "string", "minLength": 3, "maxLength": 50 },
+    "age": { "type": "integer", "minimum": 18, "maximum": 120 },
+    "score": { "type": "number", "minimum": 0.0 },
+    "active": { "type": "boolean" },
+    "role": { "type": "string", "enum": ["Admin", "User", "Guest"] },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "bio": { "type": "string" }
   },
   "required": ["username", "age", "score", "active", "role", "tags"]
 }

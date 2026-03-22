@@ -1,7 +1,6 @@
 package jsonschema
 
 import io.circe.parser.*
-import jsonschema.derivation.DeriveJsonSchema
 import munit.FunSuite
 
 import scala.collection.mutable.Buffer

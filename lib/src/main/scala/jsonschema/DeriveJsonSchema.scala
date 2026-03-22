@@ -1,6 +1,4 @@
-package jsonschema.derivation
-
-import jsonschema.*
+package jsonschema
 
 import scala.quoted.*
 

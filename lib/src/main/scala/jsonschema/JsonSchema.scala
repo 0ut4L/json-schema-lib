@@ -9,7 +9,6 @@ trait JsonSchema[A]:
   def schema: Schema
 
 object JsonSchema:
-  export derivation.DeriveJsonSchema.derived
 
   /**
    * Summon a JsonSchema instance
