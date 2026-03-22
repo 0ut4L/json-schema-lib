@@ -1,6 +1,6 @@
 # json-schema-lib
 
-A Scala 3 library for generating compile-time JSON schemas from case classes using type classes and macros.
+A Scala 3 library that leverages type classes and macros to derive JSON schemas from case classes at compile time.
 
 ## ⚠️ Project Status
 
